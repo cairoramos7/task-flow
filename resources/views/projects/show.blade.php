@@ -5,6 +5,9 @@
                 {{ $project->name }}
             </h2>
             <div class="flex gap-2">
+                <a href="{{ route('projects.tasks.index', $project) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    {{ __('Ver Todas as Tarefas') }}
+                </a>
                 <a href="{{ route('projects.tasks.create', $project) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                     {{ __('Nova Tarefa') }}
                 </a>
@@ -63,21 +66,29 @@
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-lg font-semibold">{{ __('Tarefas') }}</h3>
 
-                        <!-- Filter Form -->
-                        <form method="GET" action="{{ route('projects.show', $project) }}" class="flex gap-2">
-                            <select name="status" class="rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                <option value="">{{ __('Todos os Status') }}</option>
-                                <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>{{ __('Pendente') }}</option>
-                                <option value="in_progress" {{ request('status') === 'in_progress' ? 'selected' : '' }}>{{ __('Em Progresso') }}</option>
-                                <option value="completed" {{ request('status') === 'completed' ? 'selected' : '' }}>{{ __('Concluída') }}</option>
-                            </select>
-                            <input type="text" name="search" value="{{ request('search') }}"
-                                   placeholder="Buscar tarefas..."
-                                   class="rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                            <button type="submit" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-                                {{ __('Filtrar') }}
-                            </button>
-                        </form>
+                        <div class="flex gap-2">
+                            <a href="{{ route('projects.tasks.create', $project) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded text-sm">
+                                {{ __('+ Nova Tarefa') }}
+                            </a>
+                            <a href="{{ route('projects.tasks.index', $project) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-sm">
+                                {{ __('Ver Todas') }}
+                            </a>
+                            <!-- Filter Form -->
+                            <form method="GET" action="{{ route('projects.show', $project) }}" class="flex gap-2">
+                                <select name="status" class="rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                    <option value="">{{ __('Todos os Status') }}</option>
+                                    <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>{{ __('Pendente') }}</option>
+                                    <option value="in_progress" {{ request('status') === 'in_progress' ? 'selected' : '' }}>{{ __('Em Progresso') }}</option>
+                                    <option value="completed" {{ request('status') === 'completed' ? 'selected' : '' }}>{{ __('Concluída') }}</option>
+                                </select>
+                                <input type="text" name="search" value="{{ request('search') }}"
+                                       placeholder="Buscar tarefas..."
+                                       class="rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                <button type="submit" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                                    {{ __('Filtrar') }}
+                                </button>
+                            </form>
+                        </div>
                     </div>
 
                     @if($tasks->count() > 0)
